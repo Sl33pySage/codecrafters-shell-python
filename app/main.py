@@ -21,7 +21,7 @@ def main():
                 if path_line.endswith(command[5:]) and os.access(path_line, os.X_OK):
                     print(f"{command[5:]} is {path_line}")
                     break
-            print(f"{command.strip('type ')}: not found")
+                print(f"{command.strip('type ')}: not found")
 
 
 if __name__ == "__main__":
