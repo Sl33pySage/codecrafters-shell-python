@@ -22,6 +22,8 @@ def main():
                 print(f"{cmd} is {path}")
             else:
                 print(f"{cmd}: not found")
+        else:
+            print(f"{command}: not found")
 
 
 if __name__ == "__main__":
