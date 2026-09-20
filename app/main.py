@@ -1,5 +1,6 @@
 import sys
 import os
+import shutil
 
 
 def main():
@@ -11,21 +12,16 @@ def main():
             break
         elif command.startswith("echo"):
             print(command[5:])
-        elif command[5:] in ["type", "echo", "exit"]:
-            print(f"{command[5:]} is a shell builtin")
-        else:
-            os_path = os.get_exec_path()
-            path_line = 0
-            for path_line in os_path:
-                # print(os.access(path_line, os.X_OK))
-                if (
-                    path_line.endswith(command[5:])
-                    and os.access(path_line, os.X_OK) == True
-                ):
-                    print(f"{command[5:]} is {path_line}")
-                    break
-                else:
-                    print(f"{command.strip('type ')}: not found")
+        elif command.startswith("type"):
+            cmd = command[5:]
+
+            if cmd in ["type", "echo", "exit"]:
+                print(f"{command[5:]} is a shell builtin")
+
+            elif path := shutil.which(cmd):
+                print(f"{cmd} is {path}")
+            else:
+                print(f"{cmd}: not found")
 
 
 if __name__ == "__main__":
