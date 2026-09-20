@@ -18,7 +18,10 @@ def main():
             path_line = 0
             for path_line in os_path:
                 # print(os.access(path_line, os.X_OK))
-                if path_line.endswith(command[5:]) and os.access(path_line, os.X_OK):
+                if (
+                    path_line.endswith(command[5:])
+                    and os.access(path_line, os.X_OK) == True
+                ):
                     print(f"{command[5:]} is {path_line}")
                     break
                 else:
