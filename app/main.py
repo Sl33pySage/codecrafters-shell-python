@@ -20,7 +20,7 @@ def main():
         elif command.startswith("type"):
             cmd = command[5:]
 
-            if cmd in ["echo", "type", "exit"]:
+            if cmd in ["echo", "type", "exit", "pwd"]:
                 print(f"{cmd} is a shell builtin")
 
             elif path := shutil.which(cmd):
