@@ -28,7 +28,6 @@ def main():
 
         else:
             parts = command.split()
-            print(parts)
 
             if parts and shutil.which(parts[0]):
                 subprocess.run(parts)
