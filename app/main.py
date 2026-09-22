@@ -1,6 +1,7 @@
 import sys
 import os
 import shutil
+import subprocess
 
 
 def main():
@@ -21,7 +22,10 @@ def main():
             elif path := shutil.which(cmd):
                 print(f"{cmd} is {path}")
             else:
-                print(f"{cmd}: not found")
+                if shutil.which(cmd):
+                    subprocess.run([f"{cmd}"], check=False)
+
+                    print(f"{cmd}: not found")
         else:
             print(f"{command}: not found")
 
