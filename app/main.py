@@ -11,6 +11,9 @@ def main():
         if command == "exit":
             break
 
+        elif command == "pwd":
+            print(os.getcwd())
+
         elif command.startswith("echo "):
             print(command[5:])
 
