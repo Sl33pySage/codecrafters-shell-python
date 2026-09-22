@@ -25,7 +25,7 @@ def main():
                 if shutil.which(cmd):
                     subprocess.run([f"{cmd}"], check=False)
 
-                    print(f"{cmd}: not found")
+                # print(f"{cmd}: not found")
         else:
             print(f"{command}: not found")
 
