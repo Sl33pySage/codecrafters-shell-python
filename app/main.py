@@ -23,9 +23,9 @@ def main():
                 print(f"{cmd} is {path}")
             else:
                 if shutil.which(cmd):
-                    subprocess.run([f"{cmd}"], check=False)
+                    subprocess.run([f"{cmd}"], check=False, capture_output=True)
 
-                # print(f"{cmd}: not found")
+                    print(f"{cmd}: not found")
         else:
             print(f"{command}: not found")
 
