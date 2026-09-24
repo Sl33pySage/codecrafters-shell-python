@@ -1,6 +1,6 @@
 import os
 import pathlib
-import shlex
+from shlex import join
 import shutil
 import subprocess
 import sys
