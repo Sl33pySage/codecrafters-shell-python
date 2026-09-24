@@ -1,4 +1,9 @@
-import subprocess, shutil, os, sys, pathlib
+import os
+import pathlib
+import shlex
+import shutil
+import subprocess
+import sys
 
 
 def main():
