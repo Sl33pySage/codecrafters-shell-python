@@ -12,12 +12,13 @@ def main():
             break
 
         elif command.startswith("cd "):
-            try:
-                os.chdir(command[3:])
-                if command[3:] == "~":
-                    os.chdir(pathlib.Path.home())
-            except:
-                print(f"cd: {command[3:]}: No such file or directory")
+            if command[3:] == "~":
+                os.chdir(pathlib.Path.home())
+            else:
+                try:
+                    os.chdir(command[3:])
+                except FileNotFoundError:
+                    print(f"cd: {command[3:]}: No such file or directory")
 
         elif command == "pwd":
             print(os.getcwd())
