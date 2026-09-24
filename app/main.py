@@ -11,6 +11,12 @@ def main():
         if command == "exit":
             break
 
+        elif command.startswith("cd "):
+            try:
+                os.chdir(command[3:])
+            except:
+                print(f"cd: {command[3:]}: No such file or directory")
+
         elif command == "pwd":
             print(os.getcwd())
 
@@ -20,7 +26,7 @@ def main():
         elif command.startswith("type"):
             cmd = command[5:]
 
-            if cmd in ["echo", "type", "exit", "pwd"]:
+            if cmd in ["echo", "type", "exit", "pwd", "cd"]:
                 print(f"{cmd} is a shell builtin")
 
             elif path := shutil.which(cmd):
