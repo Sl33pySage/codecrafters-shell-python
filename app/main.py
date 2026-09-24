@@ -1,6 +1,6 @@
 import os
 import pathlib
-from shlex import join
+import shlex
 import shutil
 import subprocess
 import sys
@@ -12,6 +12,9 @@ def main():
         sys.stdout.flush()
 
         command = input()
+
+        parts = shlex.split(command)
+        program = parts[0]
 
         if command == "exit":
             break
@@ -29,7 +32,9 @@ def main():
             print(os.getcwd())
 
         elif command.startswith("echo "):
-            print(command[5:])
+            # print(command[5:])
+            print(" ".join(parts[1:]))
+            continue
 
         elif command.startswith("type"):
             cmd = command[5:]
