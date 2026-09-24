@@ -1,4 +1,4 @@
-import subprocess, shutil, os, sys
+import subprocess, shutil, os, sys, pathlib
 
 
 def main():
@@ -14,6 +14,8 @@ def main():
         elif command.startswith("cd "):
             try:
                 os.chdir(command[3:])
+                if command[3:] == "~":
+                    os.chdir(pathlib.Path.home())
             except:
                 print(f"cd: {command[3:]}: No such file or directory")
 
