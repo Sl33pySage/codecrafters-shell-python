@@ -25,7 +25,7 @@ def main():
             else:
                 try:
                     os.chdir(command[3:])
-                except FileNotFoundError:
+                except (FileNotFoundError, NotADirectoryError, PermissionError):
                     print(f"cd: {command[3:]}: No such file or directory")
 
         elif command == "pwd":
