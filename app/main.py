@@ -13,9 +13,6 @@ def main():
 
         command = input()
 
-        parts = shlex.split(command)
-        program = parts[0]
-
         if command == "exit":
             break
 
@@ -33,6 +30,7 @@ def main():
 
         elif command.startswith("echo "):
             # print(command[5:])
+            parts = shlex.split(command)
             print(" ".join(parts[1:]))
             continue
 
