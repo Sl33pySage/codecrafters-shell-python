@@ -1,58 +1,56 @@
 import os
-import pathlib
-import shlex
 import shutil
-import subprocess
 import sys
+import shlex
+import subprocess
 
 
 def main():
     while True:
         sys.stdout.write("$ ")
-        sys.stdout.flush()
-
         command = input()
+
+        if not command:
+            continue
+
+        parts = shlex.split(command)
+        program = parts[0]
 
         if command == "exit":
             break
 
-        elif command.startswith("cd "):
-            if command[3:] == "~":
-                os.chdir(pathlib.Path.home())
-            else:
-                try:
-                    os.chdir(command[3:])
-                except (FileNotFoundError, NotADirectoryError, PermissionError):
-                    print(f"cd: {command[3:]}: No such file or directory")
-
-        elif command == "pwd":
+        if command == "pwd":
             print(os.getcwd())
+            continue
 
-        elif command.startswith("echo "):
-            # print(command[5:])
-            parts = shlex.split(command)
+        if program == "echo":
             print(" ".join(parts[1:]))
             continue
 
-        elif command.startswith("type"):
-            cmd = command[5:]
-
-            if cmd in ["echo", "type", "exit", "pwd", "cd"]:
-                print(f"{cmd} is a shell builtin")
-
-            elif path := shutil.which(cmd):
-                print(f"{cmd} is {path}")
-
+        if program == "type":
+            target = parts[1]
+            if target in {"exit", "echo", "type", "pwd", "cd"}:
+                print(f"{target} is a shell builtin")
             else:
-                print(f"{cmd}: not found")
+                executable_path = shutil.which(target)
+                if executable_path:
+                    print(f"{target} is {executable_path}")
+                else:
+                    print(f"{target}: not found")
+            continue
 
+        if command == "cd" or command.startswith("cd "):
+            target = command[2:].strip() or "~"
+            try:
+                os.chdir(os.path.expanduser(target))
+            except (FileNotFoundError, NotADirectoryError, PermissionError):
+                print(f"cd: {target}: No such file or directory")
+            continue
+
+        if shutil.which(program):
+            subprocess.run(parts)
         else:
-            parts = command.split()
-
-            if parts and shutil.which(parts[0]):
-                subprocess.run(parts)
-            else:
-                print(f"{command}: command not found")
+            print(f"{command}: command not found")
 
 
 if __name__ == "__main__":
