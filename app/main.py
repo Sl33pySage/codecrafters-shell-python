@@ -16,7 +16,7 @@ def main():
         parts = shlex.split(command)
         program = parts[0]
 
-        if ">" in parts:
+        if ">" or "-1" in parts:
             with open(parts[1], "r") as file:
                 content = file.read()
                 with open(parts[3], "w") as file2:
